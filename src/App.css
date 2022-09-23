@@ -1,0 +1,32 @@
+*{
+  margin: 0 auto;
+}
+:root {
+  --main-col: rgb(27, 27, 27);
+  --main-bgc: rgb(176, 114, 137);
+  --elem-bgc: rgb(93, 183, 211);
+}
+
+body {
+  color: var(--main-col);
+  background-color: var(--main-bgc);
+}
+
+.container{
+  background-color: rgb(235, 204, 238);
+  margin-top: 30px;
+  padding: 20px;
+  height: 500px;
+  width: 400px;
+  border: 2px solid white;
+  border-radius: 20px;
+}
+
+.content {
+  padding: 20px;
+  height: 95%;
+}
+
+main{
+  margin-top: 30px;
+}

@@ -1,0 +1,9 @@
+.list-container{
+    margin-top: 30px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+.icon:hover{
+    cursor: pointer;
+}
