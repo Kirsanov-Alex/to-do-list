@@ -1,29 +1,46 @@
-import { CREATE_TO_DO, DELETE_TO_DO,  SELECT_TO_DO,  UPDATE_TO_DO } from "../actions/toDoActions";
+import {
+  CREATE_TO_DO,
+  DELETE_TO_DO,
+  UPDATE_TO_DO,
+} from "../actions/toDoActions";
 
-
+const TODOS_ID = "todos";
+const newTodos = JSON.parse(localStorage.getItem(TODOS_ID));
 const initialState = {
-    todos: [{
-        title: 'Go walk',
-        id: 1223123
-    }],
-    selectedToDo: createEmptyToDo()
-}
+  todos: newTodos || [],
+};
 
-export default function toDoReducer(state = initialState, type, payload) {
-
-    switch (type) {
-
-        case DELETE_TO_DO : return {...state, todos: [...state.todos.filter((todos)=>todos.id !== payload)]};
-        case UPDATE_TO_DO : return {...state, todos: state.todos.map((todos)=>todos.id !== payload.id ? todos : payload), selectedToDo: createEmptyToDo()};
-        case CREATE_TO_DO : return {...state, todos: [...state.todos, payload], selectedToDo: createEmptyToDo()};
-        case SELECT_TO_DO: return{...state, selectedToDo:payload}
-        default: return state;
-    }
+export default function toDoReducer(state = initialState, { type, payload }) {
+  let newTodos;
+  switch (type) {
+    case DELETE_TO_DO:
+      newTodos = state.todos.filter((todo) => todo.id !== payload);
+      localStorage.setItem(TODOS_ID, JSON.stringify(newTodos));
+      return { ...state, todos: newTodos };
+    case UPDATE_TO_DO:
+      newTodos = state.todos.map((todo) =>
+        todo.id !== payload.id ? todo : payload
+      );
+      localStorage.setItem(TODOS_ID, JSON.stringify(newTodos));
+      return {
+        ...state,
+        todos: newTodos,
+      };
+    case CREATE_TO_DO:
+      newTodos = [...state.todos, createEmptyToDo()];
+      localStorage.setItem(TODOS_ID, JSON.stringify(newTodos));
+      return {
+        ...state,
+        todos: newTodos,
+      };
+    default:
+      return state;
+  }
 }
 
 function createEmptyToDo() {
-    return {
-       title: '',
-       id: '',
-    }
+  return {
+    title: "",
+    id: Date.now(),
+  };
 }
