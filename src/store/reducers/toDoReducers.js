@@ -42,5 +42,6 @@ function createEmptyToDo() {
   return {
     title: "",
     id: Date.now(),
+    complete: false,
   };
 }
